@@ -1,0 +1,40 @@
+"use strict";  
+
+function GameObjectSet() {
+    this.mSet = [];
+}
+
+GameObjectSet.prototype.size = function () { return this.mSet.length; };
+
+GameObjectSet.prototype.getObjectAt = function (index) {
+    return this.mSet[index];
+};
+
+GameObjectSet.prototype.addToSet = function (obj) {
+    this.mSet.push(obj);
+};
+
+GameObjectSet.prototype.removeFromSet = function (obj) {
+    let index = this.mSet.indexOf(obj);
+    if (index > -1)
+        this.mSet.splice(index, 1);
+};
+
+GameObjectSet.prototype.moveToLast = function (obj) {
+    this.removeFromSet(obj);
+    this.addToSet(obj);
+};
+
+GameObjectSet.prototype.update = function () {
+    let i;
+    for (i = 0; i < this.mSet.length; i++) {
+        this.mSet[i].update();
+    }
+};
+
+GameObjectSet.prototype.draw = function (aCamera) {
+    let i;
+    for (i = 0; i < this.mSet.length; i++) {
+        this.mSet[i].draw(aCamera);
+    }
+};

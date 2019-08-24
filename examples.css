@@ -1,0 +1,26 @@
+p {
+  color: white;
+  position: absolute;
+}
+
+#LoadingScreenBar {
+  width: 0%;
+  height: 20px;
+  background-color: green;
+  font-size: 20px;
+  border-radius: 5px;
+}
+
+#GLCanvas {
+  position: absolute;
+}
+
+#LoadingIconParent {
+  position: relative;
+  top: 0px;
+  left: 0px;
+}
+
+table, th, td {
+  border: 1px solid black;
+}

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Taoism2D examples</title>
+
+  <link rel="icon" type="image/x-icon" href="./assets/Tao.png">
+  <link rel="stylesheet" type="text/css" href="examples.css">
+
+
+  <!-- Warning: The following scripts are required to load the engine. Be careful not to modify them.  -->
+  <script src="src/engine/engine.js"></script>
+  <script src="src/engine/js-extentions.js"> </script>
+  
+  <script src="src/engine/math/curve-evaluator.js"></script>
+  <script src="src/engine/math/curve.js"></script>
+  <script src="src/engine/math/curve-set.js"></script>
+  <script src="src/engine/math/quat.js"></script>
+  <script src="src/engine/math/vec2.js"></script>
+  <script src="src/engine/math/vec3.js"></script>
+  <script src="src/engine/math/vec4.js"></script>
+  <script src="src/engine/math/mat3.js"></script>
+  <script src="src/engine/math/mat4.js"></script>
+  <script src="src/engine/math/math.js"></script>
+  <script src="src/engine/math/matrix.js"></script>
+  
+  <!-- core of engine -->
+  <script src="src/engine/core/core.js"></script>
+  <script src="src/engine/core/graphics.js"></script>
+  <script src="src/engine/core/vertex-buffer.js"></script>
+  <script src="src/engine/core/loop.js"></script>
+  <script src="src/engine/core/particle-system.js"></script>
+  <script src="src/engine/core/layer-manager.js"></script>
+  <script src="src/engine/core/stencil.js"></script>
+  <!-- input -->
+  <script src="src/engine/input/input.js"></script>
+  <script src="src/engine/input/keyboard.js"></script>
+  <script src="src/engine/input/mouse.js"></script>
+  <!-- resource support -->
+  <script src="src/engine/core/resources/engine-resourcemap.js"></script>
+  <script src="src/engine/core/resources/engine-textfileloader.js"></script>
+  <script src="src/engine/core/resources/engine-defaultresources.js"></script>
+  <script src="src/engine/core/resources/engine-audioclips.js"></script>
+  <script src="src/engine/core/resources/engine-textures-backup.js"></script>
+  <script src="src/engine/core/resources/engine-fonts.js"></script>
+  <script src="src/engine/scene/scene.js"></script>
+  <!--lights -->
+  <script src="src/engine/lights/light.js"></script>
+  <script src="src/engine/lights/lightset.js"></script>
+  <!-- utilities -->
+  <script src="src/engine/utils/material.js"></script>
+  <script src="src/engine/utils/transform.js"></script>
+  <script src="src/engine/utils/bounding-box.js"></script>
+  <script src="src/engine/utils/interpolate.js"></script>
+  <script src="src/engine/utils/interpolate-vec2.js"></script>
+  <script src="src/engine/utils/loading-icon-config.js"></script>
+  <script src="src/engine/utils/shake-position.js"></script>
+  <!-- camera -->
+  <script src="src/engine/cameras/camera.js"></script>
+  <script src="src/engine/cameras/camera-manipulation.js"></script>
+  <script src="src/engine/cameras/camera-input.js"></script>
+  <script src="src/engine/cameras/camera-xform.js"></script>
+  <script src="src/engine/cameras/camera-state.js"></script>
+  <script src="src/engine/cameras/camera-shake.js"></script>
+  <!-- renderables -->
+  <script src="src/engine/renderables/renderable.js"></script>
+  <script src="src/engine/renderables/texture-renderable.js"></script>
+  <script src="src/engine/renderables/sprite-renderable.js"></script>
+  <script src="src/engine/renderables/sprite-renderable_pixelcollision.js"></script>
+  <script src="src/engine/renderables/sprite-animate-renderable.js"></script>
+  <script src="src/engine/renderables/font-renderable.js"></script>
+  <script src="src/engine/renderables/line-renderable.js"></script>
+  <script src="src/engine/renderables/light-renderable.js"></script>
+  <script src="src/engine/renderables/illum-renderable.js"></script>
+  <script src="src/engine/renderables/particle-renderable.js"></script>
+  <!-- shadows -->
+  <script src="src/engine/shadows/shadowcaster.js"></script>
+  <script src="src/engine/shadows/shadowreceiver.js"></script>
+  <script src="src/engine/shadows/shadowreceiver_stencil.js"></script>
+  <!-- gameobject -->
+  <script src="src/engine/gameobjects/gameobject.js"></script>
+  <script src="src/engine/gameobjects/gameobjectset.js"></script>
+  <script src="src/engine/gameobjects/tiledgameobject.js"></script>
+  <script src="src/engine/gameobjects/parallaxgameobject.js"></script>
+  <!-- particles -->
+  <script src="src/engine/particles/particle.js"></script>
+  <script src="src/engine/particles/particlegameobject.js"></script>
+  <script src="src/engine/particles/particlegameobjectset.js"></script>
+  <script src="src/engine/particles/particleemitter.js"></script>
+  <script src="src/engine/particles/particlesystems/particlesystem.js"></script>
+  <script src="src/engine/particles/particlesystems/fire.js"></script>
+  <script src="src/engine/particles/particlesystems/smoke.js"></script>
+  <script src="src/engine/particles/particlesystems/snow.js"></script>
+  <script src="src/engine/particles/particlesystems/dust.js"></script>
+  <script src="src/engine/particles/particlesystems/subemitter.js"></script>
+  <!-- shaders -->
+  <script src="src/engine/shaders/unlit-shader.js"></script>
+  <script src="src/engine/shaders/unlit-texture-shader.js"></script>
+  <script src="src/engine/shaders/unlit-sprite-shader.js"></script>
+  <script src="src/engine/shaders/simple-shader.js"></script>
+  <script src="src/engine/shaders/texture-shader.js"></script>
+  <script src="src/engine/shaders/sprite-shader.js"></script>
+  <script src="src/engine/shaders/line-shader.js"></script>
+  <script src="src/engine/shaders/light-shader.js"></script>
+  <script src="src/engine/shaders/shader-lightat-index.js"></script>
+  <script src="src/engine/shaders/illum-shader.js"></script>
+  <script src="src/engine/shaders/shader-material.js"></script>
+  <script src="src/engine/shaders/shadow-caster-shader.js"></script>
+  <!-- physics support -->
+  <script src="src/engine/core/physics.js"></script>
+  <script src="src/engine/rigidshapes/rigid-shape.js"></script>
+  <script src="src/engine/rigidshapes/rigid-circle.js"></script>
+  <script src="src/engine/rigidshapes/rigid-rectangle.js"></script>
+  <script src="src/engine/rigidshapes/collision-info.js"></script>
+  <script src="src/engine/rigidshapes/rigid-circle-collision.js"></script>
+  <script src="src/engine/rigidshapes/rigid-rectanglecircle-collision.js"></script>
+  <script src="src/engine/rigidshapes/rigid-rectangle-collision.js"></script>
+
+  <!-- ui -->
+  <script src="src/engine/ui/uielement.js"></script>
+  <script src="src/engine/ui/uitext.js"></script>
+  <script src="src/engine/ui/uirenderable.js"></script>
+  <script src="src/engine/ui/uitexture.js"></script>
+  <script src="src/engine/ui/uisprite.js"></script>
+  <script src="src/engine/ui/uibutton.js"></script>
+  <script src="src/engine/ui/uispritebutton.js"></script>
+  <script src="src/engine/ui/uiradio.js"></script>
+  <script src="src/engine/ui/uirbutton.js"></script>
+  <script src="src/engine/ui/uibar.js"></script>
+  <script src="src/engine/ui/uislider.js"></script>
+  <script src="src/engine/ui/uitoggle.js"></script>
+  <script src="src/engine/ui/uiswitchtoggle.js"></script>
+  <script src="src/engine/ui/uitextboxfont.js"></script>
+  <script src="src/engine/ui/uitextbox.js"></script>
+  <script src="src/engine/ui/uidropdown.js"></script>
+  <script src="src/engine/ui/uiddbutton.js"></script>
+
+  <!-- Warning: The above scripts are required to load the engine. Be careful not to modify them.  -->
+
+</head>
+
+<body>
+  <!-- client game code -->
+  <script src="src/mygame/mygame.js"></script>
+  <script src="src/mygame/particlelevel.js"></script>
+  <script src="src/mygame/firedemo.js"></script>
+  <script src="src/mygame/smokedemo.js"></script>
+  <script src="src/mygame/snowdemo.js"></script>
+  <script src="src/mygame/sfxdemo.js"></script>
+  <script src="src/mygame/dustdemo.js"></script>
+  <script src="src/mygame/rigidshapedemo.js"></script>
+  <script src="src/mygame/uidemo.js"></script>
+  <script src="src/mygame/objects/arena.js"></script>
+  <script src="src/mygame/objects/wasdobj.js"></script>
+  <script src="src/mygame/objects/minion.js"></script>
+
+  <script>
+    window.onload = function () {
+      const myGame = new MyGame();
+      engine.core.init("gameCanvas", myGame);
+    }
+  </script>
+  <div id="LoadingIconParent" style="width: 800px; height:600px; display: flex; align-items: center;">
+    <canvas id="gameCanvas">
+      Your browser does not support the HTML5 canvas.
+    </canvas>
+    <div id='LoadingScreenBar'>0%</div>
+    <script> engine.LoadingIconConfig.setup(); </script>
+  </div>
+  <div id="fire" style="display: none">
+    <div>Use Left/Right buttons to select which object to manipulate, hold M for coarse adjustment</div>
+    <table>
+      <tr>
+        <th>Controls</th>
+        <th>Description</th>
+        <th>Value</th>
+      </tr>
+      <tr>
+        <td>Q/W</td>
+        <td>Width of the object +/-</td>
+        <td><bdi id="fvalue1"></bdi></td>
+      </tr>
+      <tr>
+        <td>A/S</td>
+        <td>Vertical Acceleration of Particles +/-</td>
+        <td><bdi id="fvalue2"></bdi></td>
+      </tr>
+      <tr>
+        <td>Z/X</td>
+        <td>Life of the Particles +/-</td>
+        <td><bdi id="fvalue3"></bdi></td>
+      </tr>
+      <tr>
+        <td>E/R</td>
+        <td>Setting the Horizontal initial boost of the Particles +/-</td>
+        <td><bdi id="fvalue4"></bdi></td>
+      </tr>
+      <tr>
+        <td>D/F</td>
+        <td>Setting the Vertical initial boost of the Particles +/-</td>
+        <td><bdi id="fvalue5"></bdi></td>
+      </tr>
+      <tr>
+        <td>C/V</td>
+        <td>What the particle size is multiplied by every update +/-</td>
+        <td><bdi id="fvalue6"></bdi></td>
+      </tr>
+      <tr>
+        <td>T/Y</td>
+        <td>How many particles are spawned per update cycle +/-</td>
+        <td><bdi id="fvalue7"></bdi></td>
+      </tr>
+      <tr>
+        <td>G/H</td>
+        <td>Horizontal Acceleration of the Particles +/-</td>
+        <td><bdi id="fvalue8"></bdi></td>
+      </tr>
+      <tr>
+        <td>B/N</td>
+        <td>The size of the Particles +/-</td>
+        <td><bdi id="fvalue9"></bdi></td>
+      </tr>
+      <tr>
+        <td>U/I</td>
+        <td>The Maximum Vertical Offset of the Particles +/-</td>
+        <td><bdi id="fvalue10"></bdi></td>
+      </tr>
+      <tr>
+        <td>O/P</td>
+        <td>Percentage of Particles with Ember effect+/-</td>
+        <td><bdi id="fvalue11"></bdi></td>
+      </tr>
+      <tr>
+        <td>K/L</td>
+        <td>Percentage of Particles with Taper effect+/-</td>
+        <td><bdi id="fvalue12"></bdi></td>
+      </tr>
+    </table>
+  </div>
+
+  <div id="smoke" style="display: none">
+    <div>Use Left/Right buttons to select which object to manipulate</div>
+    <table>
+      <tr>
+        <th>Controls</th>
+        <th>Description</th>
+        <th>Value</th>
+      </tr>
+      <tr>
+        <td>Q/W</td>
+        <td>Width of the object +/-</td>
+        <td><bdi id="svalue1"></bdi></td>
+      </tr>
+      <tr>
+        <td>A/S</td>
+        <td>Vertical Acceleration of Particles +/-</td>
+        <td><bdi id="svalue2"></bdi></td>
+      </tr>
+      <tr>
+        <td>Z/X</td>
+        <td>Life of the Particles +/-</td>
+        <td><bdi id="svalue3"></bdi></td>
+      </tr>
+      <tr>
+        <td>E/R</td>
+        <td>Setting the Horizontal initial boost of the Particles +/-</td>
+        <td><bdi id="svalue4"></bdi></td>
+      </tr>
+      <tr>
+        <td>D/F</td>
+        <td>Setting the Vertical initial boost of the Particles +/-</td>
+        <td><bdi id="svalue5"></bdi></td>
+      </tr>
+      <tr>
+        <td>C/V</td>
+        <td>What the particle size is multiplied by every update +/-</td>
+        <td><bdi id="svalue6"></bdi></td>
+      </tr>
+      <tr>
+        <td>T/Y</td>
+        <td>How many particles are spawned per update cycle +/-</td>
+        <td><bdi id="svalue7"></bdi></td>
+      </tr>
+      <tr>
+        <td>G/H</td>
+        <td>Horizontal Acceleration of the Particles +/-</td>
+        <td><bdi id="svalue8"></bdi></td>
+      </tr>
+      <tr>
+        <td>B/N</td>
+        <td>The size of the Particles +/-</td>
+        <td><bdi id="svalue9"></bdi></td>
+      </tr>
+      <tr>
+        <td>U/I</td>
+        <td>The Maximum Vertical Offset of the Particles +/-</td>
+        <td><bdi id="svalue10"></bdi></td>
+      </tr>
+      <tr>
+        <td>1/2</td>
+        <td>Particle Final Color R Value +/-</td>
+        <td><bdi id="svalue11"></bdi></td>
+      </tr>
+      <tr>
+        <td>3/4</td>
+        <td>Particle Final Color G Value +/-</td>
+        <td><bdi id="svalue12"></bdi></td>
+      </tr>
+      <tr>
+        <td>5/6</td>
+        <td>Particle Final Color B Value +/-</td>
+        <td><bdi id="svalue13"></bdi></td>
+      </tr>
+      <tr>
+        <td>7/8</td>
+        <td>Particle Final Color A Value +/-</td>
+        <td><bdi id="svalue14"></bdi></td>
+      </tr>
+      <tr>
+        <td>9/0</td>
+        <td>Particle Final Color Color Shift +/-</td>
+        <td><bdi id="svalue15"></bdi></td>
+      </tr>
+    </table>
+  </div>
+
+  <div id="dust" style="display: none">
+    <div>Use Left/Right buttons to select which object to manipulate, hold M for coarse adjustment</div>
+    <table>
+      <tr>
+        <th>Controls</th>
+        <th>Description</th>
+        <th>Value</th>
+      </tr>
+      <tr>
+        <td>Q/W</td>
+        <td>Width of the object +/-</td>
+        <td><bdi id="dvalue1"></bdi></td>
+      </tr>
+      <tr>
+        <td>A/S</td>
+        <td>Vertical Acceleration of Particles +/-</td>
+        <td><bdi id="dvalue2"></bdi></td>
+      </tr>
+      <tr>
+        <td>Z/X</td>
+        <td>Life of the Particles +/-</td>
+        <td><bdi id="dvalue3"></bdi></td>
+      </tr>
+      <tr>
+        <td>E/R</td>
+        <td>Setting the Horizontal initial boost of the Particles +/-</td>
+        <td><bdi id="dvalue4"></bdi></td>
+      </tr>
+      <tr>
+        <td>D/F</td>
+        <td>Setting the Vertical initial boost of the Particles +/-</td>
+        <td><bdi id="dvalue5"></bdi></td>
+      </tr>
+      <tr>
+        <td>C/V</td>
+        <td>What the particle size is multiplied by every update +/-</td>
+        <td><bdi id="dvalue6"></bdi></td>
+      </tr>
+      <tr>
+        <td>T/Y</td>
+        <td>How many particles are spawned per update cycle +/-</td>
+        <td><bdi id="dvalue7"></bdi></td>
+      </tr>
+      <tr>
+        <td>G/H</td>
+        <td>Horizontal Acceleration of the Particles +/-</td>
+        <td><bdi id="dvalue8"></bdi></td>
+      </tr>
+      <tr>
+        <td>B/N</td>
+        <td>The size of the Particles +/-</td>
+        <td><bdi id="dvalue9"></bdi></td>
+      </tr>
+      <tr>
+        <td>U/I</td>
+        <td>The Maximum Vertical Offset of the Particles +/-</td>
+        <td><bdi id="dvalue10"></bdi></td>
+      </tr>
+    </table>
+  </div>
+  <div id="particle" style="display: none">
+    <div>Use Left/Right buttons to select which object to manipulate, hold M for coarse adjustment</div>
+    <table>
+      <tr>
+        <th>Controls</th>
+        <th>Description</th>
+        <th>Value</th>
+      </tr>
+      <tr>
+        <td>Q/W</td>
+        <td>Width of the object +/-</td>
+        <td><bdi id="pvalue1"></bdi></td>
+      </tr>
+      <tr>
+        <td>A/S</td>
+        <td>Vertical Acceleration of Particles +/-</td>
+        <td><bdi id="pvalue2"></bdi></td>
+      </tr>
+      <tr>
+        <td>Z/X</td>
+        <td>Life of the Particles +/-</td>
+        <td><bdi id="pvalue3"></bdi></td>
+      </tr>
+      <tr>
+        <td>E/R</td>
+        <td>Setting the Horizontal initial boost of the Particles +/-</td>
+        <td><bdi id="pvalue4"></bdi></td>
+      </tr>
+      <tr>
+        <td>D/F</td>
+        <td>Setting the Vertical initial boost of the Particles +/-</td>
+        <td><bdi id="pvalue5"></bdi></td>
+      </tr>
+      <tr>
+        <td>C/V</td>
+        <td>What the particle size is multiplied by every update +/-</td>
+        <td><bdi id="pvalue6"></bdi></td>
+      </tr>
+      <tr>
+        <td>T/Y</td>
+        <td>How many particles are spawned per update cycle +/-</td>
+        <td><bdi id="pvalue7"></bdi></td>
+      </tr>
+      <tr>
+        <td>G/H</td>
+        <td>Horizontal Acceleration of the Particles +/-</td>
+        <td><bdi id="pvalue8"></bdi></td>
+      </tr>
+      <tr>
+        <td>B/N</td>
+        <td>The size of the Particles +/-</td>
+        <td><bdi id="pvalue9"></bdi></td>
+      </tr>
+      <tr>
+        <td>U/I</td>
+        <td>The Maximum Vertical Offset of the Particles +/-</td>
+        <td><bdi id="pvalue10"></bdi></td>
+      </tr>
+    </table>
+  </div>
+  <div id="subemitter" style="display: none">
+    <div>Use Left/Right buttons to select which object to manipulate, hold M for coarse adjustment</div>
+    <table>
+      <tr>
+        <th>Controls</th>
+        <th>Description</th>
+        <th>Value</th>
+      </tr>
+      <tr>
+        <td>Q/W</td>
+        <td>Width of the object +/-</td>
+        <td><bdi id="SEvalue1"></bdi></td>
+      </tr>
+      <tr>
+        <td>A/S</td>
+        <td>Vertical Acceleration of Particles +/-</td>
+        <td><bdi id="SEvalue2"></bdi></td>
+      </tr>
+      <tr>
+        <td>Z/X</td>
+        <td>Life of the Particles +/-</td>
+        <td><bdi id="SEvalue3"></bdi></td>
+      </tr>
+      <tr>
+        <td>E/R</td>
+        <td>Setting the Horizontal initial boost of the Particles +/-</td>
+        <td><bdi id="SEvalue4"></bdi></td>
+      </tr>
+      <tr>
+        <td>D/F</td>
+        <td>Setting the Vertical initial boost of the Particles +/-</td>
+        <td><bdi id="SEvalue5"></bdi></td>
+      </tr>
+      <tr>
+        <td>C/V</td>
+        <td>What the particle size is multiplied by every update +/-</td>
+        <td><bdi id="SEvalue6"></bdi></td>
+      </tr>
+      <tr>
+        <td>T/Y</td>
+        <td>How many particles are spawned per update cycle +/-</td>
+        <td><bdi id="SEvalue7"></bdi></td>
+      </tr>
+      <tr>
+        <td>G/H</td>
+        <td>Horizontal Acceleration of the Particles +/-</td>
+        <td><bdi id="SEvalue8"></bdi></td>
+      </tr>
+      <tr>
+        <td>B/N</td>
+        <td>The size of the Particles +/-</td>
+        <td><bdi id="SEvalue9"></bdi></td>
+      </tr>
+      <tr>
+        <td>U/I</td>
+        <td>The Maximum Vertical Offset of the Particles +/-</td>
+        <td><bdi id="SEvalue10"></bdi></td>
+      </tr>
+      <tr>
+        <td>J</td>
+        <td>Subparticle Physics Inheritance</td>
+        <td><bdi id="SEvalue11"></bdi></td>
+      </tr>
+      <tr>
+        <td>O/P</td>
+        <td>The life of the Subparticle +/-</td>
+        <td><bdi id="SEvalue12"></bdi></td>
+      </tr>
+      <tr>
+        <td>K/L</td>
+        <td>The size delta of the Subparticle +/-</td>
+        <td><bdi id="SEvalue13"></bdi></td>
+      </tr>
+    </table>
+  </div>
+  <div id="physics" style="display: none">
+    <div style="display: table">
+      <div style="float: left; padding-left: 10px">
+        <b>Behavior Controls:</b>
+        <ul>
+          <li>
+            <b>Z/X</b>: Sequence through arenas </li>
+          <li>
+            <b>C/V</b>: Decrease/Increase Arena Restitution </li>
+          <li>
+            <b>B/N</b>: Decrease/Increase Arena Mass </li>
+          <li>
+            <b>H</b>: Inject random velocity to all objects in the selected arena </li>
+          <li>
+            <b>WASD</b>: Move selected object </li>
+          <li>
+            <b>Left/Right</b>: Sequence through selected object </li>
+          <li>
+            <b>Up/Down + MRF</b>: Increase/Decrease Mass/Restitution/Friction</li>
+          <li>
+            <b>U/J/I/K/O/L</b>: Create a Bouncy Ball/Soccer Ball/Rock/Wooden Ball/Ice/Bowling Ball </li>
+        </ul>
+      </div>
+      <table style="float: right">
+        <tr>
+          <th colspan='2'>Selected RigidBody Physics Values</th>
+        </tr>
+        <tr>
+          <th>Description</th>
+          <th>Value</th>
+        </tr>
+        <tr>
+          <td>Mass</td>
+          <td><bdi id="value11"></bdi></td>
+        </tr>
+        <tr>
+          <td>Restitution</td>
+          <td><bdi id="value12"></bdi></td>
+        </tr>
+        <tr>
+          <td>Friction</td>
+          <td><bdi id="value13"></bdi></td>
+        </tr>
+      </table>
+    </div>
+    <div><b>Warning: </b>There is a bug that if you change the
+      restitution too fast on a rigid rectangle, it might
+      cause it to endlessly bounce</div>
+  </div>
+</body>
+
+</html>

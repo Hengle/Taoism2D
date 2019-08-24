@@ -1,0 +1,1 @@
+The math related files in this folder are modified from the open-source MIT licenced project PlayCanvas-Engine.
